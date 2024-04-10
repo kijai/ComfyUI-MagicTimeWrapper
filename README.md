@@ -1,5 +1,7 @@
 # ComfyUI wrapper node for testing MagicTime
 
+https://github.com/kijai/ComfyUI-MagicTimeWrapper/assets/40791699/c71d271d-8219-456c-891d-da9bdbd44d54
+
 
 ___
 # Original repo:
