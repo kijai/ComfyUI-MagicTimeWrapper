@@ -9,23 +9,16 @@ from einops import rearrange, repeat
 from dataclasses import dataclass
 
 from diffusers.configuration_utils import ConfigMixin, register_to_config
-from diffusers.modeling_utils import ModelMixin
+from diffusers import ModelMixin
 from diffusers.utils import BaseOutput
 from diffusers.utils.import_utils import is_xformers_available
-from diffusers.models.attention import CrossAttention, FeedForward, AdaLayerNorm
-
+from diffusers.models.attention import Attention as CrossAttention, FeedForward, AdaLayerNorm
 # Attention
 @dataclass
 class Transformer3DModelOutput(BaseOutput):
     sample: torch.FloatTensor
 
-
-if is_xformers_available():
-    import xformers
-    import xformers.ops
-else:
-    xformers = None
-
+import comfy.model_management as mm
 
 class Transformer3DModel(ModelMixin, ConfigMixin):
     @register_to_config
@@ -756,7 +749,7 @@ class VersatileAttention(CrossAttention):
 
         query = self.to_q(hidden_states)
         dim = query.shape[-1]
-        query = self.reshape_heads_to_batch_dim(query)
+        query = self.head_to_batch_dim(query)
 
         if self.added_kv_proj_dim is not None:
             raise NotImplementedError
@@ -765,8 +758,8 @@ class VersatileAttention(CrossAttention):
         key = self.to_k(encoder_hidden_states)
         value = self.to_v(encoder_hidden_states)
 
-        key = self.reshape_heads_to_batch_dim(key)
-        value = self.reshape_heads_to_batch_dim(value)
+        key = self.head_to_batch_dim(key)
+        value = self.head_to_batch_dim(value)
 
         if attention_mask is not None:
             if attention_mask.shape[-1] != query.shape[1]:
@@ -775,7 +768,7 @@ class VersatileAttention(CrossAttention):
                 attention_mask = attention_mask.repeat_interleave(self.heads, dim=0)
 
         # attention, what we cannot get enough of
-        if self._use_memory_efficient_attention_xformers:
+        if mm.XFORMERS_IS_AVAILABLE:
             hidden_states = self._memory_efficient_attention_xformers(query, key, value, attention_mask)
             # Some versions of xformers return output in fp32, cast it back to the dtype of the input
             hidden_states = hidden_states.to(query.dtype)

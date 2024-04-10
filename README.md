@@ -1,3 +1,8 @@
+# ComfyUI wrapper node for testing MagicTime
+
+
+___
+# Original repo:
 <h2 align="center"> <a href="https://arxiv.org/abs/2404.05014">MagicTime: Time-lapse Video Generation Models 
   
 <a href="https://arxiv.org/abs/2404.05014">as Metamorphic Simulators</a></h2>
