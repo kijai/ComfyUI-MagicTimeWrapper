@@ -2,7 +2,22 @@
 
 https://github.com/kijai/ComfyUI-MagicTimeWrapper/assets/40791699/c71d271d-8219-456c-891d-da9bdbd44d54
 
+# Installing
+Either use the Manager and it's install from git -feature, or clone this repo to custom_nodes and run:
 
+`pip install -r requirements.txt`
+
+or if you use portable (run this in ComfyUI_windows_portable -folder):
+
+`python_embeded\python.exe -m pip install -r ComfyUI\custom_nodes\ComfyUI-ELLA-wrapper\requirements.txt`
+
+You can use any 1.5 model, and the v3 AnimateDiff motion model 
+placed in `ComfyUI/models/animatediff_models`: 
+
+https://huggingface.co/guoyww/animatediff/blob/main/v3_sd15_mm.ckpt
+
+rest (131.0 MB) is **auto downloaded**, from https://huggingface.co/BestWishYsh/MagicTime/tree/main/Magic_Weights
+to `ComfyUI/modes/magictime` 
 ___
 # Original repo:
 https://github.com/PKU-YuanGroup/MagicTime
