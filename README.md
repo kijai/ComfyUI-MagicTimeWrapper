@@ -9,7 +9,7 @@ Either use the Manager and it's install from git -feature, or clone this repo to
 
 or if you use portable (run this in ComfyUI_windows_portable -folder):
 
-`python_embeded\python.exe -m pip install -r ComfyUI\custom_nodes\ComfyUI-ELLA-wrapper\requirements.txt`
+`python_embeded\python.exe -m pip install -r ComfyUI\custom_nodes\ComfyUI-MagicTimeWrapper\requirements.txt`
 
 You can use any 1.5 model, and the v3 AnimateDiff motion model 
 placed in `ComfyUI/models/animatediff_models`: 
