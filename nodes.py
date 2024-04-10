@@ -171,11 +171,12 @@ class magictime_sampler:
             "steps": ("INT", {"default": 25, "min": 1, "max": 200, "step": 1}),
             "guidance_scale": ("FLOAT", {"default": 7.0, "min": 0.0, "max": 20.0, "step": 0.01}),
             "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
-             "scheduler": (
+            "scheduler": (
                 [
                     'DPMSolverMultistepScheduler',
                     'DPMSolverMultistepScheduler_SDE_karras',
                     'DDPMScheduler',
+                    'DDIMScheduler',
                     'LCMScheduler',
                     'PNDMScheduler',
                     'DEISMultistepScheduler',
@@ -199,6 +200,7 @@ class magictime_sampler:
         dtype = mm.unet_dtype()
         vae_dtype = mm.vae_dtype()
         device = mm.get_torch_device()
+        offload_device = mm.unet_offload_device()
 
         pipe=magictime_model['pipe']
         pipe.to(device, dtype=dtype)
@@ -250,7 +252,7 @@ class magictime_sampler:
             video_length        = frames,
             generator           = generator,
             ).videos
-
+            pipe.to(offload_device)
             image_out = sample.squeeze(0).permute(1, 2, 3, 0).cpu().float()
             return (image_out,)
 
