@@ -1,5 +1,17 @@
 # ComfyUI wrapper node for testing MagicTime
 
+# UPDATE
+
+While making this I figured out that I could just extract the lora and apply it to the v3 motion model to use it as it is with any Animatediff-Evolved workflow, the merged v3 checkpoint along with the spatial lora converted to .safetensors, are available here:
+
+https://huggingface.co/Kijai/MagicTime-merged-fp16
+
+**This does NOT need this repo, I will not be updating this further.**
+
+___
+
+## Only use this repo and the following instructions for legacy/testing purposes:
+
 https://github.com/kijai/ComfyUI-MagicTimeWrapper/assets/40791699/c71d271d-8219-456c-891d-da9bdbd44d54
 
 # Installing
